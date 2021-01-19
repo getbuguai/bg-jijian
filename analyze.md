@@ -14,7 +14,26 @@
 
 ### 图片下载链接
 
-Get https://w.wallhaven.cc/full/q6/wallhaven-q6oxqq.jpg
+Get 
+下载地址
+https://w.wallhaven.cc/full/q6/wallhaven-q6oxqq.jpg
+https://w.wallhaven.cc/full/p8/wallhaven-p8g3le.jpg
+https://w.wallhaven.cc/full/96/wallhaven-96gqz8.jpg
+https://w.wallhaven.cc/full/r2/wallhaven-r2g7rm.jpg
+https://w.wallhaven.cc/full/5d/wallhaven-5dekk8.jpg
+https://w.wallhaven.cc/full/zm/wallhaven-zm9kpy.jpg
+https://w.wallhaven.cc/full/wy/wallhaven-wye1qr.jpg
+https://w.wallhaven.cc/full/96/wallhaven-96w8e8.png
+https://w.wallhaven.cc/full/39/wallhaven-392zpd.jpg
+https://w.wallhaven.cc/full/5w/wallhaven-5wkvz8.png 1920 × 1382
+
+Get 
+缩略图
+https://th.wallhaven.cc/small/r2/r222om.jpg
+https://th.wallhaven.cc/small/43/438w60.jpg
+https://th.wallhaven.cc/small/5w/5wkvz8.jpg 300 x 200
+
+
 
 
 ### 获取图片列表:
