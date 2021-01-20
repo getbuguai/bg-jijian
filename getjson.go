@@ -87,17 +87,39 @@ type imageMsg struct {
 	BodyByte []byte    `json:"-"`
 }
 
-// GetFileName 获取图片的文件名称
-func (img *imageMsg) GetFileName() string {
+// GetURLName 获取图片的下载名称
+func (img *imageMsg) GetURLName() string {
 	switch img.Type {
 	case ImageJPG:
-		return fmt.Sprintf("%s_%d_%d.jpg", img.ID,img.X,img.Y)
+		return fmt.Sprintf("%s.jpg", img.ID)
 	case ImagePNG:
-		return fmt.Sprintf("%s_%d_%d.png",img.ID,img.X,img.Y)
+		return fmt.Sprintf("%s.png", img.ID)
 	default:
 		return ""
 		// return img.ID
 	}
+}
+
+// GetFileName 获取图片的文件名称
+func (img *imageMsg) GetFileName() string {
+	switch img.Type {
+	case ImageJPG:
+		return fmt.Sprintf("%s_%d_%d.jpg", img.ID, img.X, img.Y)
+	case ImagePNG:
+		return fmt.Sprintf("%s_%d_%d.png", img.ID, img.X, img.Y)
+	default:
+		return ""
+		// return img.ID
+	}
+}
+
+// GetGrouping 获取图片的存储分组
+func (img *imageMsg) GetGrouping() string {
+	if len(img.ID) == 6 {
+		// 0<= string <2 , [0:2)
+		return img.ID[:2]
+	}
+	return ""
 }
 
 // GetJson 获取指定类型的图片列表

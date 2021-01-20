@@ -2,8 +2,9 @@ package main
 
 import (
 	"context"
-	"github.com/rs/zerolog/log"
 	"time"
+
+	"github.com/rs/zerolog/log"
 )
 
 var downloadConf DownloadConfig
@@ -18,7 +19,7 @@ func main() {
 		Target:  TargetAnime,
 		PageNum: 1,
 	}
-	err:=rt.GetJson(ctx, DefaultDisposeImageJSON)
+	err := rt.GetJson(ctx, DefaultDisposeImageJSON)
 	if err != nil {
 		log.Fatal().Err(err)
 	}
@@ -36,7 +37,7 @@ func main() {
 func DefaultDisposeImageJSON(body *ResultJSON) error {
 
 	for _, v := range body.Result.Records {
-		log.Log().Msgf("FileNam: %s", v.GetFileName())
+		log.Log().Msgf("URLName: %s", v.GetURLName())
 
 		go downloadConf.DownloadImage(v)
 		time.Sleep(100 * time.Millisecond)
