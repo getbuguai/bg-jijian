@@ -25,7 +25,7 @@ func main() {
 	}
 	log.Log().Msgf("Page: %d", rt.PageNum)
 
-	if rt.HaveNextPage() {
+	for rt.HaveNextPage() {
 		err = rt.GetJson(ctx, DefaultDisposeImageJSON)
 		if err != nil {
 			log.Fatal().Err(err)

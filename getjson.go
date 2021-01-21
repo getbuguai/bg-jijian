@@ -33,7 +33,7 @@ var defaultHeader = http.Header{
 // GetJsonReq 获取图片列表的请求参数
 type GetJsonReq struct {
 	Target   string    `json:"target"` // const
-	PageNum  int       `json:"page_num"`
+	PageNum  int       `json:"pageNum"`
 	TempDate *tempDate `json:"-"`
 }
 

@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"context"
+	"testing"
+)
 
 func Test_imageMsg_GetGrouping(t *testing.T) {
 	img := &imageMsg{
@@ -8,5 +11,20 @@ func Test_imageMsg_GetGrouping(t *testing.T) {
 	}
 	got := img.GetGrouping()
 	t.Log(got)
+
+}
+
+func TestGetJsonReq_GetJson(t *testing.T) {
+
+	r := &GetJsonReq{
+		Target:  TargetAnime,
+		PageNum: 2,
+	}
+	if err := r.GetJson(context.Background(), func(j *ResultJSON) error {
+		t.Log(j.Result.Current, j.Result.Records[5].ID)
+		return nil
+	}); err != nil {
+		t.Errorf("GetJson() error = %v", err)
+	}
 
 }
