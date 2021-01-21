@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"sync"
 	"time"
 
 	"github.com/rs/zerolog/log"
@@ -16,7 +17,8 @@ func init() {
 func main() {
 	ctx := context.Background()
 	rt := &GetJsonReq{
-		Target:  TargetAnime,
+		// Target:  TargetAnime,
+		Target:  TargetPeople,
 		PageNum: 1,
 	}
 	err := rt.GetJson(ctx, DefaultDisposeImageJSON)
@@ -36,11 +38,21 @@ func main() {
 // DefaultDisposeImageJSON 默认处理 GetJson
 func DefaultDisposeImageJSON(body *ResultJSON) error {
 
+	wg := sync.WaitGroup{}
+	wg.Add(len(body.Result.Records))
+
 	for _, v := range body.Result.Records {
 		log.Log().Msgf("URLName: %s", v.GetURLName())
 
-		go downloadConf.DownloadImage(v)
+		go func(img *imageMsg) {
+			defer wg.Done()
+			downloadConf.DownloadImage(img)
+		}(v)
+
 		time.Sleep(100 * time.Millisecond)
 	}
+
+	wg.Wait()
+
 	return nil
 }

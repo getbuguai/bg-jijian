@@ -35,7 +35,7 @@ func (conf *DownloadConfig) DownloadImage(img *imageMsg) error {
 		return nil
 	}
 
-	log.Log().Msg(fmt.Sprintf(downloadImageURL, group, imgURLName))
+	// log.Log().Msg(fmt.Sprintf(downloadImageURL, group, imgURLName))
 
 	res, err := http.Get(fmt.Sprintf(downloadImageURL, group, imgURLName))
 	if err != nil {

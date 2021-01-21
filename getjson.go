@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"runtime"
 )
 
 const (
@@ -168,6 +169,8 @@ func (r *GetJsonReq) GetJson(ctx context.Context, disposeJson func(*ResultJSON) 
 			Size:    jbody.Result.Size,
 		}
 	}
+
+	runtime.GC()
 
 	return nil
 
