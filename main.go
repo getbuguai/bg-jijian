@@ -17,8 +17,8 @@ func init() {
 func main() {
 	ctx := context.Background()
 	rt := &GetJsonReq{
-		// Target:  TargetAnime,
-		Target:  TargetPeople,
+		Target: TargetAnime,
+		// Target:  TargetPeople,
 		PageNum: 1,
 	}
 	err := rt.GetJson(ctx, DefaultDisposeImageJSON)
@@ -36,7 +36,7 @@ func main() {
 }
 
 // DefaultDisposeImageJSON 默认处理 GetJson
-func DefaultDisposeImageJSON(body *ResultJSON)(bool, error) {
+func DefaultDisposeImageJSON(body *ResultJSON) (ok bool, err error) {
 
 	wg := sync.WaitGroup{}
 	wg.Add(len(body.Result.Records))
@@ -46,7 +46,10 @@ func DefaultDisposeImageJSON(body *ResultJSON)(bool, error) {
 
 		go func(img *imageMsg) {
 			defer wg.Done()
-			downloadConf.DownloadImage(img)
+			err = downloadConf.DownloadImage(img)
+			if err != nil {
+				log.Error().Err(err).Msgf("URLName: %s", img.ID)
+			}
 		}(v)
 
 		time.Sleep(100 * time.Millisecond)
@@ -54,5 +57,5 @@ func DefaultDisposeImageJSON(body *ResultJSON)(bool, error) {
 
 	wg.Wait()
 
-	return true,nil
+	return true, nil
 }
