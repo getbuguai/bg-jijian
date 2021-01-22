@@ -36,7 +36,7 @@ func main() {
 }
 
 // DefaultDisposeImageJSON 默认处理 GetJson
-func DefaultDisposeImageJSON(body *ResultJSON) error {
+func DefaultDisposeImageJSON(body *ResultJSON)(bool, error) {
 
 	wg := sync.WaitGroup{}
 	wg.Add(len(body.Result.Records))
@@ -54,5 +54,5 @@ func DefaultDisposeImageJSON(body *ResultJSON) error {
 
 	wg.Wait()
 
-	return nil
+	return true,nil
 }

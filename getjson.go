@@ -124,7 +124,7 @@ func (img *imageMsg) GetGrouping() string {
 }
 
 // GetJson 获取指定类型的图片列表
-func (r *GetJsonReq) GetJson(ctx context.Context, disposeJson func(*ResultJSON) error) error {
+func (r *GetJsonReq) GetJson(ctx context.Context, disposeJson func(*ResultJSON)(bool,error) ) error {
 
 	parame, err := json.Marshal(r)
 	if err != nil {
@@ -156,9 +156,12 @@ func (r *GetJsonReq) GetJson(ctx context.Context, disposeJson func(*ResultJSON) 
 		return err
 	}
 
-	err = disposeJson(jbody)
+	ok,err := disposeJson(jbody)
 	if err != nil {
 		return err
+	}
+	if !ok{
+		return nil
 	}
 
 	if r.TempDate == nil && jbody.Result != nil {
