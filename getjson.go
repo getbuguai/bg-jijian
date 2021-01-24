@@ -33,7 +33,8 @@ var defaultHeader = http.Header{
 // GetJsonReq 获取图片列表的请求参数
 type GetJsonReq struct {
 	Target   string    `json:"target"` // const
-	PageNum  int       `json:"pageNum"`
+	PageNum  uint      `json:"pageNum"`
+	EndNum   uint      `json:"-"`
 	TempDate *tempDate `json:"-"`
 }
 
@@ -41,16 +42,21 @@ type GetJsonReq struct {
 type tempDate struct {
 	Current int
 	Total   int
-	Pages   int
+	Pages   uint
 	Size    int
 }
 
 // HaveNextPage 是否有下一页
 func (r *GetJsonReq) HaveNextPage() bool {
-	if r.TempDate != nil && r.PageNum < r.TempDate.Pages {
+	if r.PageNum == r.EndNum {
+		return false
+	}
+
+	if r.TempDate != nil && r.PageNum < r.EndNum && r.PageNum < r.TempDate.Pages {
 		r.PageNum++
 		return true
 	}
+
 	return false
 }
 

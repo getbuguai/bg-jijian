@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"path/filepath"
+	"strconv"
 
 	"github.com/rs/zerolog/log"
 )
@@ -16,6 +17,30 @@ const (
 // DownloadConfig 下载的配置文件
 type DownloadConfig struct {
 	FileDirectory string
+	ImageType     string
+	StartPageNum  uint
+	EndPageNum    uint
+}
+
+func NewDownloadConfig(downType uint,
+	downFile string, downSatrtPageNum uint,
+	downAll bool) DownloadConfig {
+
+	res := DownloadConfig{
+		FileDirectory: downFile,
+		ImageType:     TargetAnime,
+		StartPageNum:  downSatrtPageNum,
+		EndPageNum:    downSatrtPageNum,
+	}
+	if downType == 1 {
+		res.ImageType = TargetPeople
+	}
+
+	if downAll {
+		res.EndPageNum = 0
+	}
+	return res
+
 }
 
 // DownloadImage 下载图片
@@ -43,10 +68,23 @@ func (conf *DownloadConfig) DownloadImage(img *imageMsg) error {
 	}
 	defer res.Body.Close()
 
+	// content-length : 2573746 文件的大小
+	fileSize, err := strconv.ParseUint(res.Header.Get("content-length"), 10, 10)
+	if err != nil {
+		return err
+	}
+	if fileSize == 0 {
+		return fmt.Errorf("file size is zero ... ")
+	}
+
 	img.BodyByte, err = ioutil.ReadAll(res.Body)
 	if err != nil {
 		return err
 	}
+
+	// if fileSize == uint64(len(img.BodyByte)) {
+	// 	return fmt.Errorf("file size not equil imgBytes ... ")
+	// }
 
 	return SaveFile(filepath.Join(conf.FileDirectory, img.GetFileName()), img.BodyByte)
 }
