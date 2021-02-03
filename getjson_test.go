@@ -20,9 +20,9 @@ func TestGetJsonReq_GetJson(t *testing.T) {
 		Target:  TargetAnime,
 		PageNum: 2,
 	}
-	if err := r.GetJson(context.Background(), func(j *ResultJSON) (bool,error) {
-		t.Log(j.Result.Current, j.Result.Records[5].ID)
-		return true,nil
+	if err := r.GetJson(context.Background(), func(j *ResultJSON) (bool, error) {
+		t.Log(j.Result.Current, j.Result.Records[5].ID, len(j.Result.Records))
+		return true, nil
 	}); err != nil {
 		t.Errorf("GetJson() error = %v", err)
 	}

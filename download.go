@@ -2,12 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/rs/zerolog/log"
 	"io/ioutil"
 	"net/http"
 	"path/filepath"
-	"strconv"
-
-	"github.com/rs/zerolog/log"
 )
 
 const (
@@ -60,7 +58,7 @@ func (conf *DownloadConfig) DownloadImage(img *imageMsg) error {
 		return nil
 	}
 
-	// log.Log().Msg(fmt.Sprintf(downloadImageURL, group, imgURLName))
+	log.Log().Msg(fmt.Sprintf(downloadImageURL, group, imgURLName))
 
 	res, err := http.Get(fmt.Sprintf(downloadImageURL, group, imgURLName))
 	if err != nil {
@@ -69,13 +67,13 @@ func (conf *DownloadConfig) DownloadImage(img *imageMsg) error {
 	defer res.Body.Close()
 
 	// content-length : 2573746 文件的大小
-	fileSize, err := strconv.ParseUint(res.Header.Get("content-length"), 10, 10)
-	if err != nil {
-		return err
-	}
-	if fileSize == 0 {
-		return fmt.Errorf("file size is zero ... ")
-	}
+	//fileSize, err := strconv.ParseUint(res.Header.Get("content-length"), 10, 10)
+	//if err != nil {
+	//	return err
+	//}
+	//if fileSize == 0 {
+	//	return fmt.Errorf("file size is zero ... ")
+	//}
 
 	img.BodyByte, err = ioutil.ReadAll(res.Body)
 	if err != nil {

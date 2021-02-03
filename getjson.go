@@ -76,7 +76,7 @@ type ResultJSON struct {
 	Result *struct {
 		Current     int         `json:"current,omitempty"`
 		Total       int         `json:"total,omitempty"`
-		Pages       int         `json:"pages,omitempty"`
+		Pages       uint        `json:"pages,omitempty"`
 		Size        int         `json:"size,omitempty"`
 		Records     []*imageMsg `json:"records,omitempty"`
 		SearchCount bool        `json:"searchCount,omitempty"`
@@ -131,13 +131,13 @@ func (img *imageMsg) GetGrouping() string {
 // GetJson 获取指定类型的图片列表
 func (r *GetJsonReq) GetJson(ctx context.Context, disposeJson func(*ResultJSON) (bool, error)) error {
 
-	parame, err := json.Marshal(r)
+	param, err := json.Marshal(r)
 	if err != nil {
 		return err
 	}
 
 	client := &http.Client{}
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, getJsonURL, bytes.NewReader(parame))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, getJsonURL, bytes.NewReader(param))
 	if err != nil {
 		return err
 	}
