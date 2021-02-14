@@ -48,11 +48,15 @@ type tempDate struct {
 
 // HaveNextPage 是否有下一页
 func (r *GetJsonReq) HaveNextPage() bool {
+	if r.TempDate != nil && r.EndNum == 0 {
+		r.EndNum = r.TempDate.Pages
+	}
+
 	if r.PageNum == r.EndNum {
 		return false
 	}
 
-	if r.TempDate != nil && r.PageNum < r.EndNum && r.PageNum < r.TempDate.Pages {
+	if r.TempDate != nil && r.PageNum < r.TempDate.Pages && r.PageNum < r.EndNum {
 		r.PageNum++
 		return true
 	}

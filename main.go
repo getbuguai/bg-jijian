@@ -23,7 +23,7 @@ var showLog bool
 var showHelp bool
 
 func init() {
-	flag.UintVar(&downType, "t", 0, "下载的图片的类型[0 : 二次元, 1 : 人物]")
+	flag.UintVar(&downType, "t", 0, "下载的图片的类型[0 : 二次元, 1 : 人物, 2 : 精选 ]")
 	flag.StringVar(&downFile, "o", "./images", "下载的图片保存路径")
 	flag.UintVar(&downStartPageNum, "s", 1, "下载第几页的图片")
 	flag.BoolVar(&downAll, "a", false, "是否下载后续的所有页面, 默认只下载一页")

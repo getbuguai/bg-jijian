@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/rs/zerolog/log"
 	"io/ioutil"
 	"net/http"
 	"path/filepath"
+
+	"github.com/rs/zerolog/log"
 )
 
 const (
@@ -32,6 +33,9 @@ func NewDownloadConfig(downType uint,
 	}
 	if downType == 1 {
 		res.ImageType = TargetPeople
+	}
+	if downType == 2 {
+		res.ImageType = TargetIndex
 	}
 
 	if downAll {
