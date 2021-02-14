@@ -42,7 +42,7 @@ $ ./bg_jijian.exe
   -s uint
         下载第几页的图片 (default 1)
   -t uint
-        下载的图片的类型[0 : 二次元, 1 : 人物]
+        下载的图片的类型[0 : 二次元, 1 : 人物, 2 : 精选]
   -v    是否显示日志信息, 默认不显示
 作者 : 这个程序不太乖 ,
  GitHub: https://github.com/getbuguai
