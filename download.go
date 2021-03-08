@@ -88,5 +88,14 @@ func (conf *DownloadConfig) DownloadImage(img *imageMsg) error {
 	// 	return fmt.Errorf("file size not equil imgBytes ... ")
 	// }
 
-	return SaveFile(filepath.Join(conf.FileDirectory, img.GetFileName()), img.BodyByte)
+	filename := filepath.Join(conf.FileDirectory, img.GetFileName())
+	if len(filename) == 0 {
+		return fmt.Errorf("filename length is 0")
+	}
+
+	if len(img.BodyByte) == 0 {
+		return fmt.Errorf("data length is 0")
+	}
+
+	return ioutil.WriteFile(filename, img.BodyByte, 0644)
 }
